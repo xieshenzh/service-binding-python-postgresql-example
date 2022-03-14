@@ -1,32 +1,33 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-python-service
+  name: service-binding-python-service
 spec:
   selector:
-    app: hello-python
+    app: service-binding
   ports:
   - protocol: "TCP"
     port: 6000
     targetPort: 5000
-  type: LoadBalancer
-
 
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-python
+  name: service-binding
 spec:
-  replicas: 4
+  selector:
+    matchLabels:
+       app: service-binding
+  replicas: 2
   template:
     metadata:
       labels:
-        app: hello-python
+        app: service-binding
     spec:
       containers:
-      - name: hello-python
-        image: hello-python:latest
-        imagePullPolicy: Never
+      - name: service-binding
+        image: quay.io/xiezhang7/service-binding:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
