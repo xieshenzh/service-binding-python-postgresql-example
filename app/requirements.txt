@@ -1,1 +1,4 @@
-Flask
+flask
+flask_sqlalchemy
+pyservicebinding
+psycopg2-binary
